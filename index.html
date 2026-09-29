@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Special Apology 💌</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #fff0f3;
+      background-image: radial-gradient(#ffccd5 1px, transparent 1px);
+      background-size: 20px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      border: 3px solid #ff4d6d;
+      border-radius: 25px;
+      padding: 30px;
+      width: 100%;
+      max-width: 450px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(255, 77, 109, 0.15);
+    }
+
+    h1, h2 {
+      color: #ff4d6d;
+      margin-bottom: 15px;
+    }
+
+    p {
+      color: #59253a;
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #ff8fa3;
+      border-radius: 12px;
+      font-size: 1rem;
+      outline: none;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"]:focus {
+      border-color: #ff4d6d;
+    }
+
+    button {
+      background-color: #ff4d6d;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.2s;
+    }
+
+    button:hover {
+      background-color: #c9184a;
+      transform: scale(1.05);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* Meter styles */
+    .meter-container {
+      background-color: #ffe5ec;
+      border-radius: 20px;
+      height: 25px;
+      width: 100%;
+      margin: 15px 0;
+      overflow: hidden;
+      border: 2px solid #ff8fa3;
+    }
+
+    .meter-fill {
+      background-color: #ff4d6d;
+      height: 100%;
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    /* Balloon Game Styles */
+    .balloon-grid {
+      display: flex;
+      justify-content: space-around;
+      margin: 25px 0;
+    }
+
+    .balloon {
+      width: 65px;
+      height: 80px;
+      background-color: #ff8fa3;
+      border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-weight: bold;
+      font-size: 0.8rem;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.2s;
+      box-shadow: inset -5px -5px 10px rgba(0,0,0,0.1);
+    }
+
+    .balloon:nth-child(1) { background-color: #ff4d6d; }
+    .balloon:nth-child(2) { background-color: #ff758f; }
+    .balloon:nth-child(3) { background-color: #ff8fa3; }
+    .balloon:nth-child(4) { background-color: #ffa6c1; }
+
+    .balloon:hover {
+      transform: scale(1.1);
+    }
+
+    .balloon.popped {
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    /* Certificate Styles */
+    .certificate {
+      border: 3px dashed #ff4d6d;
+      padding: 20px;
+      border-radius: 15px;
+      background-color: #fff0f3;
+      margin-top: 15px;
+    }
+
+    .certificate h3 {
+      color: #c9184a;
+      letter-spacing: 2px;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    .name-display {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #ff4d6d;
+      text-decoration: underline;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    
+    <!-- STEP 1: Enter Name -->
+    <div id="step1">
+      <h1>Let's Make Amends 💌</h1>
+      <p>I made a mistake, and I really want to say sorry. First, tell me who this is for:</p>
+      <input type="text" id="userName" placeholder="Enter your name here..." />
+      <button onclick="startApp()">Continue 🥺</button>
+    </div>
+
+    <!-- STEP 2: Balloon Game -->
+    <div id="step2" class="hidden">
+      <h2>Forgiveness Meter 💖</h2>
+      <p>Pop all 4 balloons to unlock my apology certificate!</p>
+      
+      <div class="meter-container">
+        <div id="meterFill" class="meter-fill"></div>
+      </div>
+      <p id="meterText">0% Forgiven</p>
+
+      <div class="balloon-grid">
+        <div class="balloon" onclick="popBalloon(this)">Forgive</div>
+        <div class="balloon" onclick="popBalloon(this)">Peace 🕊️</div>
+        <div class="balloon" onclick="popBalloon(this)">Hug 🤗</div>
+        <div class="balloon" onclick="popBalloon(this)">Love ❤️</div>
+      </div>
+
+      <button id="nextBtn" class="hidden" onclick="showCertificate()">View Certificate ✨</button>
+    </div>
+
+    <!-- STEP 3: Final Certificate -->
+    <div id="step3" class="hidden">
+      <div class="certificate">
+        <h3>★ OFFICIAL APOLOGY ★</h3>
+        <p>This certificate is lovingly presented to:</p>
+        <div class="name-display" id="displayName">Name</div>
+        <p>I'm truly sorry for hurting you. You mean the world to me, and I promise to do better. Please forgive me! ❤️</p>
+      </div>
+      <br>
+      <p>Thank you for being so wonderful! 🥰</p>
+    </div>
+
+  </div>
+
+  <script>
+    let name = "";
+    let poppedCount = 0;
+
+    function startApp() {
+      const input = document.getElementById("userName").value.trim();
+      if (input === "") {
+        alert("Please enter a name!");
+        return;
+      }
+      name = input;
+      document.getElementById("step1").classList.add("hidden");
+      document.getElementById("step2").classList.remove("hidden");
+    }
+
+    function popBalloon(element) {
+      if (!element.classList.contains("popped")) {
+        element.classList.add("popped");
+        poppedCount++;
+
+        let percentage = (poppedCount / 4) * 100;
+        document.getElementById("meterFill").style.width = percentage + "%";
+        document.getElementById("meterText").innerText = percentage + "% Forgiven";
+
+        if (poppedCount === 4) {
+          document.getElementById("nextBtn").classList.remove("hidden");
+        }
+      }
+    }
+
+    function showCertificate() {
+      document.getElementById("displayName").innerText = name;
+      document.getElementById("step2").classList.add("hidden");
+      document.getElementById("step3").classList.remove("hidden");
+    }
+  </script>
+
+</body>
+</html>
