@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>A Special Apology 💌</title>
+  <title>For You 💌</title>
   <style>
     * {
       box-sizing: border-box;
@@ -20,75 +20,67 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 20px;
+      padding: 15px;
     }
 
     .card {
       background: white;
       border: 3px solid #ff4d6d;
       border-radius: 25px;
-      padding: 30px;
+      padding: 25px 20px;
       width: 100%;
-      max-width: 450px;
+      max-width: 420px;
       text-align: center;
       box-shadow: 0 10px 25px rgba(255, 77, 109, 0.15);
+      position: relative;
     }
 
-    h1, h2 {
+    h2, h3 {
       color: #ff4d6d;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
     }
 
     p {
       color: #59253a;
-      font-size: 1.1rem;
-      margin-bottom: 20px;
+      font-size: 1.05rem;
+      margin-bottom: 18px;
       line-height: 1.5;
     }
 
-    input[type="text"] {
-      width: 100%;
-      padding: 12px;
-      border: 2px solid #ff8fa3;
-      border-radius: 12px;
-      font-size: 1rem;
-      outline: none;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    input[type="text"]:focus {
-      border-color: #ff4d6d;
-    }
-
-    button {
+    .btn {
       background-color: #ff4d6d;
       color: white;
       border: none;
-      padding: 12px 25px;
+      padding: 12px 24px;
       font-size: 1rem;
       font-weight: bold;
       border-radius: 50px;
       cursor: pointer;
       transition: transform 0.2s, background-color 0.2s;
+      margin: 5px;
     }
 
-    button:hover {
+    .btn:hover {
       background-color: #c9184a;
       transform: scale(1.05);
     }
 
+    .btn-secondary {
+      background-color: #ffb3c1;
+      color: #59253a;
+    }
+
     .hidden {
-      display: none;
+      display: none !important;
     }
 
     /* Meter styles */
     .meter-container {
       background-color: #ffe5ec;
       border-radius: 20px;
-      height: 25px;
+      height: 22px;
       width: 100%;
-      margin: 15px 0;
+      margin: 15px 0 8px 0;
       overflow: hidden;
       border: 2px solid #ff8fa3;
     }
@@ -100,16 +92,35 @@
       transition: width 0.4s ease;
     }
 
-    /* Balloon Game Styles */
+    /* Tags Cloud */
+    .tags-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .tag {
+      background: #ffe5ec;
+      color: #ff4d6d;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 0.95rem;
+      border: 1px solid #ff8fa3;
+    }
+
+    /* Balloon Game */
     .balloon-grid {
       display: flex;
       justify-content: space-around;
-      margin: 25px 0;
+      margin: 20px 0;
     }
 
     .balloon {
-      width: 65px;
-      height: 80px;
+      width: 60px;
+      height: 75px;
       background-color: #ff8fa3;
       border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
       display: flex;
@@ -117,11 +128,11 @@
       align-items: center;
       color: white;
       font-weight: bold;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       cursor: pointer;
       user-select: none;
       transition: transform 0.2s;
-      box-shadow: inset -5px -5px 10px rgba(0,0,0,0.1);
+      box-shadow: inset -4px -4px 8px rgba(0,0,0,0.1);
     }
 
     .balloon:nth-child(1) { background-color: #ff4d6d; }
@@ -129,16 +140,12 @@
     .balloon:nth-child(3) { background-color: #ff8fa3; }
     .balloon:nth-child(4) { background-color: #ffa6c1; }
 
-    .balloon:hover {
-      transform: scale(1.1);
-    }
-
     .balloon.popped {
       visibility: hidden;
       opacity: 0;
     }
 
-    /* Certificate Styles */
+    /* Certificate Box */
     .certificate {
       border: 3px dashed #ff4d6d;
       padding: 20px;
@@ -150,15 +157,20 @@
     .certificate h3 {
       color: #c9184a;
       letter-spacing: 2px;
-      font-size: 1.2rem;
-      margin-bottom: 10px;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
     }
 
     .name-display {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: bold;
       color: #ff4d6d;
       text-decoration: underline;
+      margin: 10px 0;
+    }
+
+    .emoji-big {
+      font-size: 3.5rem;
       margin: 10px 0;
     }
   </style>
@@ -167,23 +179,57 @@
 
   <div class="card">
     
-    <!-- STEP 1: Enter Name -->
-    <div id="step1">
-      <h1>Let's Make Amends 💌</h1>
-      <p>I made a mistake, and I really want to say sorry. First, tell me who this is for:</p>
-      <input type="text" id="userName" placeholder="Enter your name here..." />
-      <button onclick="startApp()">Continue 🥺</button>
+    <!-- PAGE 1: Intro / Anger state -->
+    <div id="page1">
+      <h2>Hey <span class="person-name"></span> 🥺</h2>
+      <div class="emoji-big">😡</div>
+      <p>Still angry with me...?</p>
+      <div class="meter-container">
+        <div class="meter-fill" style="width: 0%;"></div>
+      </div>
+      <p style="font-size: 0.9rem; font-weight: bold; color: #ff4d6d;">Forgiveness: 0%</p>
+      <button class="btn" onclick="goToPage(2)">Tap to fix this 💌</button>
     </div>
 
-    <!-- STEP 2: Balloon Game -->
-    <div id="step2" class="hidden">
-      <h2>Forgiveness Meter 💖</h2>
-      <p>Pop all 4 balloons to unlock my apology certificate!</p>
+    <!-- PAGE 2: Do you wanna see it? -->
+    <div id="page2" class="hidden">
+      <h2>Do you wanna see my apology? 🥺</h2>
+      <div class="emoji-big">👉👈</div>
+      <button class="btn" onclick="goToPage(3)">YES! ✨</button>
+      <button class="btn btn-secondary" onclick="triggerAngry()">NO 😤</button>
+    </div>
+
+    <!-- PAGE 2 - REACTION: How Dare You -->
+    <div id="page2-angry" class="hidden">
+      <h2>HOW DARE YOU!? 😡</h2>
+      <div class="emoji-big">😤</div>
+      <p>Okay okay, don't be mad... let me try again 🥺</p>
+      <button class="btn" onclick="goToPage(2)">Try again 💖</button>
+    </div>
+
+    <!-- PAGE 3: Tags / What you mean to me -->
+    <div id="page3" class="hidden">
+      <h2>To Me, You Are...</h2>
+      <div class="tags-container">
+        <div class="tag">peace 🕊️</div>
+        <div class="tag">home 🏠</div>
+        <div class="tag">partner in crime 😜</div>
+        <div class="tag">happy place 🌈</div>
+        <div class="tag">bestie by choice 💕</div>
+        <div class="tag">favourite person ✨</div>
+        <div class="tag">my lifeline ❤️</div>
+      </div>
+      <button class="btn" onclick="goToPage(4)">Pop balloons to forgive 🎈</button>
+    </div>
+
+    <!-- PAGE 4: Balloon Popping Game -->
+    <div id="page4" class="hidden">
+      <h2>Pop them, one by one! 🎈</h2>
       
       <div class="meter-container">
-        <div id="meterFill" class="meter-fill"></div>
+        <div id="meterFill" class="meter-fill" style="width: 0%;"></div>
       </div>
-      <p id="meterText">0% Forgiven</p>
+      <p id="meterText" style="font-size: 0.9rem; font-weight: bold; color: #ff4d6d;">Forgiveness: 0%</p>
 
       <div class="balloon-grid">
         <div class="balloon" onclick="popBalloon(this)">Forgive</div>
@@ -192,38 +238,58 @@
         <div class="balloon" onclick="popBalloon(this)">Love ❤️</div>
       </div>
 
-      <button id="nextBtn" class="hidden" onclick="showCertificate()">View Certificate ✨</button>
+      <button id="page4Next" class="btn hidden" onclick="goToPage(5)">Read my note 💌</button>
     </div>
 
-    <!-- STEP 3: Final Certificate -->
-    <div id="step3" class="hidden">
+    <!-- PAGE 5: Apology Message -->
+    <div id="page5" class="hidden">
+      <h2>I'm Really Sorry ❤️</h2>
+      <div class="emoji-big">🥺</div>
+      <p id="customMessage">I'm truly sorry for hurting you. You mean the world to me, and I promise to do better — please forgive me! 💗</p>
+      <button class="btn" onclick="goToPage(6)">Unlock Certificate 🏆</button>
+    </div>
+
+    <!-- PAGE 6: Certificate of Apology -->
+    <div id="page6" class="hidden">
       <div class="certificate">
-        <h3>★ OFFICIAL APOLOGY ★</h3>
-        <p>This certificate is lovingly presented to:</p>
-        <div class="name-display" id="displayName">Name</div>
-        <p>I'm truly sorry for hurting you. You mean the world to me, and I promise to do better. Please forgive me! ❤️</p>
+        <h3>★ CERTIFICATE OF APOLOGY ★</h3>
+        <p>This official certificate is presented to:</p>
+        <div class="name-display person-name">Name</div>
+        <p>For being the most patient, wonderful, and special person ever. Forgiveness meter is officially 100%! 💖</p>
+        <div style="font-size: 1.5rem; margin-top: 10px;">♥ ♥ ♥</div>
       </div>
       <br>
-      <p>Thank you for being so wonderful! 🥰</p>
+      <p>Thank you for giving me a chance! 🥰</p>
     </div>
 
   </div>
 
   <script>
-    let name = "";
-    let poppedCount = 0;
+    // ==========================================
+    // 1. EDIT HER NAME HERE
+    // ==========================================
+    let recipientName = "Her Name";
 
-    function startApp() {
-      const input = document.getElementById("userName").value.trim();
-      if (input === "") {
-        alert("Please enter a name!");
-        return;
-      }
-      name = input;
-      document.getElementById("step1").classList.add("hidden");
-      document.getElementById("step2").classList.remove("hidden");
+    // Optional: Edit your custom apology text here
+    let apologyMessage = "I'm truly sorry for hurting you. You mean the world to me, and I promise to do better — please forgive me! 💗";
+
+    // Set Name & Message across the page
+    document.querySelectorAll(".person-name").forEach(el => el.innerText = recipientName);
+    document.getElementById("customMessage").innerText = apologyMessage;
+
+    // Page navigation helper
+    function goToPage(pageNumber) {
+      document.querySelectorAll(".card > div").forEach(div => div.classList.add("hidden"));
+      document.getElementById("page" + pageNumber).classList.remove("hidden");
     }
 
+    function triggerAngry() {
+      document.querySelectorAll(".card > div").forEach(div => div.classList.add("hidden"));
+      document.getElementById("page2-angry").classList.remove("hidden");
+    }
+
+    // Balloon Game Logic
+    let poppedCount = 0;
     function popBalloon(element) {
       if (!element.classList.contains("popped")) {
         element.classList.add("popped");
@@ -231,20 +297,15 @@
 
         let percentage = (poppedCount / 4) * 100;
         document.getElementById("meterFill").style.width = percentage + "%";
-        document.getElementById("meterText").innerText = percentage + "% Forgiven";
+        document.getElementById("meterText").innerText = "Forgiveness: " + percentage + "%";
 
         if (poppedCount === 4) {
-          document.getElementById("nextBtn").classList.remove("hidden");
+          document.getElementById("page4Next").classList.remove("hidden");
         }
       }
-    }
-
-    function showCertificate() {
-      document.getElementById("displayName").innerText = name;
-      document.getElementById("step2").classList.add("hidden");
-      document.getElementById("step3").classList.remove("hidden");
     }
   </script>
 
 </body>
 </html>
+
